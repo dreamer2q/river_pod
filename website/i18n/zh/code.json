@@ -1,0 +1,253 @@
+{
+  "theme.NotFound.title": {
+    "message": "页面不存在",
+    "description": "The title of the 404 page"
+  },
+  "theme.NotFound.p1": {
+    "message": "我们找不到你需要的页面。",
+    "description": "The first paragraph of the 404 page"
+  },
+  "theme.NotFound.p2": {
+    "message": "请联系带你来到这个页面的网站管理员，让我们知道原始链接是否可用。",
+    "description": "The 2nd paragraph of the 404 page"
+  },
+  "theme.AnnouncementBar.closeButtonAriaLabel": {
+    "message": "关闭",
+    "description": "The ARIA label for close button of announcement bar"
+  },
+  "theme.blog.paginator.navAriaLabel": {
+    "message": "文章列表",
+    "description": "The ARIA label for the blog pagination"
+  },
+  "theme.blog.paginator.newerEntries": {
+    "message": "上一页",
+    "description": "The label used to navigate to the newer blog posts page (previous page)"
+  },
+  "theme.blog.paginator.olderEntries": {
+    "message": "下一页",
+    "description": "The label used to navigate to the older blog posts page (next page)"
+  },
+  "theme.blog.post.readingTime.plurals": {
+    "message": "{readingTime} 分钟",
+    "description": "Pluralized label for \"{readingTime} min read\". Use as much plural forms (separated by \"|\") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)"
+  },
+  "theme.tags.tagsListLabel": {
+    "message": "标记: ",
+    "description": "The label alongside a tag list"
+  },
+  "theme.blog.post.readMore": {
+    "message": "阅读全文",
+    "description": "The label used in blog post item excerpts to link to full blog posts"
+  },
+  "theme.blog.post.paginator.navAriaLabel": {
+    "message": "文章列表",
+    "description": "The ARIA label for the blog posts pagination"
+  },
+  "theme.blog.post.paginator.newerPost": {
+    "message": "上一篇",
+    "description": "The blog post button label to navigate to the newer/previous post"
+  },
+  "theme.blog.post.paginator.olderPost": {
+    "message": "下一篇",
+    "description": "The blog post button label to navigate to the older/next post"
+  },
+  "theme.blog.sidebar.navAriaLabel": {
+    "message": "最近文章",
+    "description": "The ARIA label for recent posts in the blog sidebar"
+  },
+  "theme.blog.post.plurals": {
+    "message": "文章数量: {count}",
+    "description": "Pluralized label for \"{count} posts\". Use as much plural forms (separated by \"|\") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)"
+  },
+  "theme.blog.tagTitle": {
+    "message": "[ {tagName} ]带有标签的文章数量: {nPosts}",
+    "description": "The title of the page for a blog tag"
+  },
+  "theme.tags.tagsPageLink": {
+    "message": "表情列表",
+    "description": "The label of the link targeting the tag list page"
+  },
+  "theme.CodeBlock.copyButtonAriaLabel": {
+    "message": "复制代码",
+    "description": "The ARIA label for copy code blocks button"
+  },
+  "theme.CodeBlock.copied": {
+    "message": "已复制",
+    "description": "The copied button label on code blocks"
+  },
+  "theme.CodeBlock.copy": {
+    "message": "复制",
+    "description": "The copy button label on code blocks"
+  },
+  "theme.tags.tagsPageTitle": {
+    "message": "标签",
+    "description": "The title of the tag list page"
+  },
+  "theme.docs.sidebar.expandButtonTitle": {
+    "message": "展开",
+    "description": "The ARIA label and title attribute for expand button of doc sidebar"
+  },
+  "theme.docs.sidebar.expandButtonAriaLabel": {
+    "message": "展开",
+    "description": "The ARIA label and title attribute for expand button of doc sidebar"
+  },
+  "theme.docs.paginator.navAriaLabel": {
+    "message": "文章列表",
+    "description": "The ARIA label for the docs pagination"
+  },
+  "theme.docs.paginator.previous": {
+    "message": "上一篇",
+    "description": "The label used to navigate to the previous doc"
+  },
+  "theme.docs.paginator.next": {
+    "message": "下一篇",
+    "description": "The label used to navigate to the next doc"
+  },
+  "theme.docs.sidebar.collapseButtonTitle": {
+    "message": "折叠",
+    "description": "The title attribute for collapse button of doc sidebar"
+  },
+  "theme.docs.sidebar.collapseButtonAriaLabel": {
+    "message": "折叠",
+    "description": "The title attribute for collapse button of doc sidebar"
+  },
+  "theme.docs.versions.unreleasedVersionLabel": {
+    "message": "{siteTitle} 将在下一个版本 {versionLabel} 发布",
+    "description": "The label used to tell the user that he's browsing an unreleased doc version"
+  },
+  "theme.docs.versions.unmaintainedVersionLabel": {
+    "message": "{siteTitle} 适用于 {versionLabel} 已不在维护",
+    "description": "The label used to tell the user that he's browsing an unmaintained doc version"
+  },
+  "theme.docs.versions.latestVersionSuggestionLabel": {
+    "message": "最新版本为 {versionLabel} ，详情: {latestVersionLink}",
+    "description": "The label used to tell the user to check the latest version"
+  },
+  "theme.docs.versions.latestVersionLinkLabel": {
+    "message": "最新版本",
+    "description": "The label used for the latest version suggestion link label"
+  },
+  "theme.common.editThisPage": {
+    "message": "编辑",
+    "description": "The link label to edit the current page"
+  },
+  "theme.common.headingLinkTitle": {
+    "message": "回到标题",
+    "description": "Title for link to heading"
+  },
+  "theme.lastUpdated.atDate": {
+    "message": "最近更新于: {date}",
+    "description": "The words used to describe on which date a page has been last updated"
+  },
+  "theme.lastUpdated.byUser": {
+    "message": "最近更新者: {user}",
+    "description": "The words used to describe by who the page has been last updated"
+  },
+  "theme.lastUpdated.lastUpdatedAtBy": {
+    "message": "最近更新: 由 {byUser} 于 {atDate} ",
+    "description": "The sentence used to display when a page has been last updated, and by who"
+  },
+  "theme.navbar.mobileSidebarSecondaryMenu.backButtonLabel": {
+    "message": "← 主菜单",
+    "description": "The label of the back button to return to main menu, inside the mobile navbar sidebar secondary menu (notably used to display the docs sidebar)"
+  },
+  "theme.common.skipToMainContent": {
+    "message": "查看详情",
+    "description": "The skip to content label used for accessibility, allowing to rapidly navigate to main content with keyboard tab/enter navigation"
+  },
+  "theme.TOCCollapsible.toggleButtonLabel": {
+    "message": "目录",
+    "description": "The label used by the button on the collapsible TOC component"
+  },
+  "theme.SearchPage.documentsFound.plurals": {
+    "message": "找到 {count} 篇相关文章",
+    "description": "Pluralized label for \"{count} documents found\". Use as much plural forms (separated by \"|\") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)"
+  },
+  "theme.SearchPage.existingResultsTitle": {
+    "message": "搜索 {query} 的结果",
+    "description": "The search page title for non-empty query"
+  },
+  "theme.SearchPage.emptyResultsTitle": {
+    "message": "搜索文章",
+    "description": "The search page title for empty query"
+  },
+  "theme.SearchPage.inputPlaceholder": {
+    "message": "搜索",
+    "description": "The placeholder for search page input"
+  },
+  "theme.SearchPage.inputLabel": {
+    "message": "搜索",
+    "description": "The ARIA label for search page input"
+  },
+  "theme.SearchPage.algoliaLabel": {
+    "message": "Search by Algolia",
+    "description": "The ARIA label for Algolia mention"
+  },
+  "theme.SearchPage.noResultsText": {
+    "message": "未找到搜索结果",
+    "description": "The paragraph for empty search result"
+  },
+  "theme.SearchPage.fetchingNewResults": {
+    "message": "搜索中...",
+    "description": "The paragraph for fetching new search results"
+  },
+  "theme.SearchBar.label": {
+    "message": "搜索",
+    "description": "The ARIA label and placeholder for search button"
+  },
+  "homepage.compile_safe_title": {
+    "message": "编译安全"
+  },
+  "homepage.compile_safe_body": {
+    "message": "还在受困于 {ProviderNotFound} 的异常或者担心没有处理好加载状态吗？Riverpod 解决你的烦恼，只要你的代码编译通过，就能正常运行。"
+  },
+  "homepage.unlimited_provider_title": {
+    "message": "更少限制的 Provider"
+  },
+  "homepage.unlimited_provider_body": {
+    "message": "Riverpod 启发于 Provider，但是解决了许多 Provider 的痛点、难点。例如，支持多个 Provider 使用一个类型；支持异步 Provider；在任何地方创建你的 Provider ..."
+  },
+  "homepage.no_flutter_dependency_title": {
+    "message": "与 Flutter 解耦"
+  },
+  "homepage.no_flutter_dependency_body": {
+    "message": "创建、共享和测试你的 Provider 不再依赖于 Flutter。这意味着你可以对 Provider 进行监听，而无需 {BuildContext}。"
+  },
+  "home.tagline": {
+    "message": "一个响应式的数据缓存和绑定框架"
+  },
+  "home.get_started": {
+    "message": "开始使用"
+  },
+  "home.shared_state_title": {
+    "message": "在任何位置声明共享状态"
+  },
+  "home.shared_state_body": {
+    "message": "不需要在 {main} 和 UI 代码之间反复横跳。{br} 将共享状态的代码放置在属于它的位置，在一个单独的库中，或紧挨在需要使用它的组件旁，同时也不失去代码的可测试性。",
+    "description": "The homepage input placeholder"
+  },
+  "home.recompute_title": {
+    "message": "更新状态/重建 UI 仅发生在需要的时候"
+  },
+  "home.recompute_body": {
+    "message": "不再需要在 {build} 方法里面对列表进行排序/筛选操作，也无需借助于其它高级缓存机制。{br}{br}通过 {Provider} 和 {families}，仅在你需要的时候才会去排序一个列表或者发起一个 HTTP 请求。"
+  },
+  "home.safe_read_title": {
+    "message": "状态读取安全"
+  },
+  "home.safe_read_body": {
+    "message": "读取一个 provider 的状态不会造成一个坏状态。如果你能编写读取 provider 的代码，你就能获取一个有效的值。{br}{br} 即使是异步加载的值也能适用。不同于使用 Provider，Riverpod 允许你干净地处理加载中和出错的情况。"
+  },
+  "home.devtool_title": {
+    "message": "在 devtool 里面查看状态"
+  },
+  "home.devtool_body": {
+    "message": "通过使用 Riverpod，你的状态在 Flutter 的 devtool 是开箱可见的。 {br} 更进一步，一个完全成熟的状态审查工具正在开发中。"
+  },
+  "home.create_provider": {
+    "message": "创建一个 Provider"
+  },
+  "home.consume_provider": {
+    "message": "消费一个 Provider"
+  }
+}

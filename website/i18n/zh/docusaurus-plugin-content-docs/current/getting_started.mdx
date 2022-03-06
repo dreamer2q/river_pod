@@ -1,0 +1,156 @@
+---
+title: 快速开始
+---
+
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+import CodeBlock from "@theme/CodeBlock";
+import helloWorldHooks from "!!raw-loader!/i18n/zh/docusaurus-plugin-content-docs/current/getting_started_hello_world_hooks.dart";
+import helloWorldFlutter from "!!raw-loader!/i18n/zh/docusaurus-plugin-content-docs/current/getting_started_hello_world_flutter.dart";
+import helloWorldDart from "!!raw-loader!/i18n/zh/docusaurus-plugin-content-docs/current/getting_started_hello_world_dart.dart";
+import { trimSnippet } from "../../../../src/components/CodeSnippet";
+
+在开始深入了解 [Riverpod] 的内在机制之前，让我们从一些基础用法开始：
+安装 [Riverpod]， 然后编写一个 “Hell world” 示例。
+
+## 需要安装什么库
+
+在你开始之前，你需要意识到 [Riverpod] 被分成多个库，不同的库有些许轻微的差异。
+你需要安装那一个 [Riverpod] 库，取决于你的应用类型。
+你可以参考下面的表格，来了解你需要安装哪一个库。
+
+| 应用类型                  | 库名                                                                               | 描述                                                          |
+| ------------------------- | ---------------------------------------------------------------------------------- | ------------------------------------------------------------- |
+| 只有 Flutter              | [flutter_riverpod]                                                                 | Flutter 使用 [Riverpod] 的基础用法。                          |
+| Flutter + [flutter_hooks] | [hooks_riverpod]                                                                   | 允许 [flutter_hooks] 和 [Riverpod] 同时使用.                  |
+| 只有 Dart (无 Flutter)    | [riverpod](https://github.com/rrousselGit/river_pod/tree/master/packages/riverpod) | 一个特定版本的 [Riverpod] 库，移除了所有和 Flutter 相关的类。 |
+
+## 安装库
+
+当你了解需要使用那些库时，就可以添加下面的内容到你的 `pubspec.yaml` 中：
+
+<Tabs
+  groupId="riverpod"
+  defaultValue="hooks_riverpod"
+  values={[
+    { label: 'Flutter + flutter_hooks', value: 'hooks_riverpod', },
+    { label: '仅 Flutter', value: 'flutter_riverpod', },
+    { label: '仅 Dart', value: 'riverpod', },
+  ]}
+>
+<TabItem value="hooks_riverpod">
+
+```yaml title="pubspec.yaml"
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+  flutter: ">=2.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_hooks: ^0.18.0
+  hooks_riverpod: ^2.0.0-dev.4
+```
+
+然后运行 `flutter pub get`。
+
+</TabItem>
+<TabItem value="flutter_riverpod">
+
+```yaml title="pubspec.yaml"
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+  flutter: ">=2.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_riverpod: ^2.0.0-dev.4
+```
+
+然后运行 `flutter pub get`。
+
+</TabItem>
+<TabItem value="riverpod">
+
+```yaml title="pubspec.yaml"
+environment:
+  sdk: ">=2.12.0-0 <3.0.0"
+
+dependencies:
+  riverpod: ^2.0.0-dev.4
+```
+
+然后运行 `dart pub get`。
+
+</TabItem>
+</Tabs>
+
+就是这样。你已经将 [Riverpod] 添加到你的 App 中了！
+
+## 使用示例: Hello world
+
+既然我们已经完成了 [Riverpod] 的安装，接下来就可以使用它了。
+
+下面的代码片段演示了如何使用刚才安装的依赖库实现一个 “Hello world” 示例：
+
+export const foo = 42;
+
+<Tabs
+  groupId="riverpod"
+  defaultValue="hooks_riverpod"
+  values={[
+    { label: "Flutter + flutter_hooks", value: "hooks_riverpod" },
+    { label: "仅 Flutter", value: "flutter_riverpod" },
+    { label: "仅 Dart", value: "riverpod" },
+  ]}
+>
+<TabItem value="hooks_riverpod">
+
+<CodeBlock title="lib/main.dart">{trimSnippet(helloWorldHooks)}</CodeBlock>
+
+你可以执行 `flutter run` 来运行这段代码。
+它会在你的设备上渲染出 “Hello world”。
+
+</TabItem>
+<TabItem value="flutter_riverpod">
+
+<CodeBlock title="lib/main.dart">{trimSnippet(helloWorldFlutter)}</CodeBlock>
+
+你可以执行 `flutter run` 来运行这段代码。
+它会在你的设备上渲染出 “Hello world”。
+
+</TabItem>
+<TabItem value="riverpod">
+
+<CodeBlock title="lib/main.dart">{trimSnippet(helloWorldDart)}</CodeBlock>
+
+你可以执行 `flutter run` 来运行这段代码。
+它会在你的设备上渲染出 “Hello world”。
+
+</TabItem>
+</Tabs>
+
+## 更近一步：安装 code snippets
+
+如果你使用的是 `VS Code`， 考虑使用 [Flutter Riverpod Snippets](https://marketplace.visualstudio.com/items?itemName=robert-brunhage.flutter-riverpod-snippets)
+
+如果你使用的是 `Android Studio` 或者 `IntelliJ`，考虑使用 [Flutter Riverpod Snippets](https://plugins.jetbrains.com/plugin/14641-flutter-riverpod-snippets)
+
+![img](/img/snippets/greetingProvider.gif)
+
+## 下一步做什么
+
+Learn some basic concepts:
+了解一些基础的概念：
+
+- [更多关于 providers](/docs/concepts/providers)
+
+Follow a cookbook:
+
+- [如何测试 providers](/docs/cookbooks/testing)
+
+[riverpod]: https://github.com/rrousselgit/river_pod
+[hooks_riverpod]: https://pub.dev/packages/hooks_riverpod
+[flutter_riverpod]: https://pub.dev/packages/flutter_riverpod
+[flutter_hooks]: https://github.com/rrousselGit/flutter_hooks
