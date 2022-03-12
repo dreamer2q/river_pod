@@ -6,23 +6,25 @@ import CodeBlock from "@theme/CodeBlock";
 import logger from "!!raw-loader!/docs/concepts/provider_observer_logger.dart";
 import { trimSnippet } from "../../../../../src/components/CodeSnippet";
 
-[ProviderObserver] listens to the changes of a ProviderContainer.
+[ProviderObserver] 监听 ProviderContainer 的变化。
 
-To use it, extend the class ProviderObserver and override the method you want to use.
+为了使用，请扩展 ProviderObserver 类并重写需要使用到的方法。
 
 [ProviderObserver] has three methods :
 
-- `didAddProvider` is called every time a provider was initialized, and the value exposed is `value`.
-- `didDisposeProvider` is called every time a provider was disposed.
-- `didUpdateProvider` is called every time by providers when they emit a notification.
+[ProviderObserver] 有三个方法：
 
-### Usage :
+- `didUpdateProvider` 当有 provider 完成初始化时调用，参数是 `value`。
+- `didDisposeProvider` 当有 provider 被销毁时调用。
+- `didUpdateProvider` 当 provider 发送通知时调用。
 
-A simple use case for [ProviderObserver] is to log the changes in providers by overriding the `didUpdateProvider` method.
+### 使用示例:
+
+一个简单的 [ProviderObserver] 的使用示例是通过重写 `didUpdateProvider` 方法来记录 provider 的变化。
 
 <CodeBlock>{trimSnippet(logger)}</CodeBlock>
 
-Now, every time the value of our provider is updated, the logger will log it:
+现在，每次 provider 的值发生变化时，logger 就会记录下来。
 
 ```
 I/flutter (16783): {
@@ -32,10 +34,9 @@ I/flutter (16783): }
 ```
 
 :::note:
-For states that are mutable such as [StateController] (the state of [StateProvider.state]) and
-[ChangeNotifier] the previousValue and newValue will be the same
+对于可变的状态，如 [StateController] (StateProvider.state) 和 [ChangeNotifier]，previousValue 和 newValue 将会相同，
+因为它们引用相同的 `StateController` / `ChangeNotifier`。
 :::
-since they reference the same `StateController` / `ChangeNotifier`.
 
 [providerobserver]: https://pub.dev/documentation/riverpod/latest/riverpod/ProviderObserver-class.html
 [statecontroller]: https://pub.dev/documentation/riverpod/latest/riverpod/StateController-class.html
