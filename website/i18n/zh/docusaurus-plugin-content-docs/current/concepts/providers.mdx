@@ -2,41 +2,37 @@
 title: Providers
 ---
 
-Now that we have installed [Riverpod], let's talk about "providers".
+既然我们已经安装了 [Riverpod]，现在来讨论一下 “providers”。
 
-Providers are the most important part of a [Riverpod] application.
-A provider is an object that encapsulates a piece of state and allows listening
-to that state.
+Providers 在一个 [Riverpod] 的应用程序中发挥着重要的作用。
 
-## Why use providers?
+一个 provider 就是一个对象，它针对一个状态进行封装，同时可以监听状态改变事件。
 
-Wrapping a piece of state in a provider:
+## 为何使用 providers?
 
-- Allows easily accessing that state in multiple locations.
-  Providers are a complete replacement for patterns like Singletons,
-  Service Locators, Dependency Injection or InheritedWidgets.
+使用 provider 封装状态：
 
-- Simplifies combining this state with others.
-  Ever struggled to merge multiple objects into one? This scenario is built
-  directly inside providers.
+- 让你可以在多处位置轻松访问这个状态。
+  Providers 可以完全替代 Singletons (单例模式)、Service Locators (服务定位模式)、Dependency Injection (依赖注入) 或 InheritedWidgets (继承 Widget) 等模式。
 
-- Enables performance optimizations.
-  Whether for filtering widget rebuilds or for caching expensive state computations;
-  providers ensure that only what is impacted by a state change is recomputed.
+- 简化合并多个状态对象的操作。
+  你经常遇到需要将多个对象合并为一个对象的情况？这种情况就直接在 provider 中实现了。
 
-- Increases the testability of your application.
-  With providers, you do not need complex `setUp`/`tearDown` steps. Furthermore,
-  any provider can be overridden to behave differently during a test, which
-  allows easily testing a very specific behavior.
+- 启用性能优化。
+  是否需要对状态进行过滤，或者是否需要对计算较为耗时的状态进行缓存？
+  providers 可以保证只有当状态改变时，才会重新计算相关的状态。
 
-- Allows easy integration with advanced features, such as logging or
-  pull-to-refresh.
+- 增加了你的应用程序的可测试性。
+  使用 providers，你不需要复杂的 `setUp`/`tearDown` 步骤。
+  同时，任何 provider 可以在测试中被覆盖，从而达到测试特定行为的目的。
 
-## Creating a provider
+- 可以让你更好地集成到高级功能，例如日志或者下拉刷新。
 
-Providers come in many variants, but they all work the same way.
+## 创建一个 provider
 
-The most common usage is to declare them as global constants like so:
+Providers 有很多变种，但是它们本质都是一样的。
+
+最常见的用法是将它们声明为全局常量，如下所示：
 
 ```dart
 final myProvider = Provider((ref) {
@@ -45,49 +41,44 @@ final myProvider = Provider((ref) {
 ```
 
 :::note
-Do not be frightened by the global aspect of providers.
-Providers are fully immutable. Declaring a provider is no different from declaring
-a function, and providers are testable and maintainable.
+不要因为 providers 是全局的而感到担忧。
+Providers 是完全不可变的。声明一个 provider 和声明一个函数没有什么不同，此外 providers 可以被测试和维护。
 :::
 
-This snippet consists of three components:
+这段代码由三个部分组成：
 
-- `final myProvider`, the declaration of a variable.
-  This variable is what we will use in the future to read the state of our provider.
-  Providers should always be `final`.
+- `final myProvider`，声明一个变量。
+  这个变量将在未来用于读取我们的 provider 的状态。
+  providers 应该总是是 `final`。
 
-- `Provider`, the provider that we decided to use.
-  [Provider] is the most basic of all providers. It exposes an object that never
-  changes.
-  We could replace [Provider] with other providers like [StreamProvider] or
-  [StateNotifierProvider], to change how the value is interacted with.
+- `Provider`，我们选择使用的 provider。
+  [Provider] 是所有 providers 的基础。它只会暴露一个不会改变的对象。
+  我们可以替换 [Provider] 为其他 providers，例如 [StreamProvider] 或 [StateNotifierProvider]，
+  以改变如何与返回值进行交互。
 
-- A function that creates the shared state.
-  That function will always receive an object called `ref` as a parameter. This object
-  allows us to read other providers, perform some operations when the state
-  of our provider will be destroyed, and much more.
+- 一个函数，用于创建共享状态。
+  这个函数将在参数中接收一个名为 `ref` 的对象。这个对象允许我们读取其他 providers，
+  在我们的 provider 的状态将被销毁时执行一些操作，等等。
 
-The type of the object returned by the function passed to a provider depends on
-the provider used.
-For example, the function of a [Provider] can create any object.
-On the other hand, [StreamProvider]'s callback will be expected to return a [Stream].
+函数返回的对象的类型取决于使用的 provider。
+例如，[Provider] 的创建函数可以返回任何对象。
+另一方面，[StreamProvider] 的回调函数只能返回一个 [Stream]。
 
 :::info
-You can declare as many providers as you want without limitations.
-As opposed to when using `package:provider`, [Riverpod] allows creating multiple
-providers exposing a state of the same "type":
+你可以声明你想要的任意多个 providers ，不受限制。
+与 `package:provider` 不同，[Riverpod] 允许创建多个 providers 拥有相同 “类型” 的状态：
 
 ```dart
 final cityProvider = Provider((ref) => 'London');
 final countryProvider = Provider((ref) => 'England');
 ```
 
-The fact that both providers create a `String` does not cause any problem.
+事实上，这两个 providers 创建相同类型的 `String` 不会导致任何问题。
 :::
 
 :::caution
-For providers to work, you must add [ProviderScope] at the root of your
-Flutter applications:
+
+如果想要 providers 可以工作，你必须在你的 Flutter 应用的根节点添加 [ProviderScope]：
 
 ```dart
 void main() {
@@ -97,50 +88,49 @@ void main() {
 
 :::
 
-## Different Types of Providers
+## 不同类型的 Providers
 
-There are multiple types of providers for multiple different use cases.
+有多种不同用途的 providers。
 
-With all of these providers available, it is sometimes difficult to understand when to use one provider type over another.
-Use the table below to choose a provider that fits what you want to provide to the widget tree.
+这么多种不同用途的 providers，有时很难理解一种 provider 类型是否更适合使用。
+下面的表格可以帮助你选择一种最适合你使用的 provider 类型。
 
-| Provider Type            | Provider Create Function             | Example Use Case                                                     |
-| ------------------------ | ------------------------------------ | -------------------------------------------------------------------- |
-| [Provider]               | Returns any type                     | A service class / computed property (filtered list)                  |
-| [StateProvider]          | Returns any type                     | A filter condition / simple state object                             |
-| [FutureProvider]         | Returns a Future of any type         | A result from an API call                                            |
-| [StreamProvider]         | Returns a Stream of any type         | A stream of results from an API                                      |
-| [StateNotifierProvider]  | Returns a subclass of StateNotifier  | A complex state object that is immutable except through an interface |
-| [ChangeNotifierProvider] | Returns a subclass of ChangeNotifier | A complex state object that requires mutability                      |
+| Provider 类型            | Provider 创建函数返回类型      | 使用示例                                         |
+| ------------------------ | ------------------------------ | ------------------------------------------------ |
+| [Provider]               | 返回任何类型                   | 一个服务类型 / 计算属性 (筛选后的列表)           |
+| [StateProvider]          | 返回任何类型                   | 一个筛选条件 / 简单状态对象                      |
+| [FutureProvider]         | 返回任何 Future 类型           | 一个异步 API 调用的返回内容                      |
+| [StreamProvider]         | 返回任何 Stream 类型           | 一个 API 调用的返回的 Stream 流内容              |
+| [StateNotifierProvider]  | 返回任何 StateNotifier 的子类  | 一个不可变的复杂状态对象，只能通过接口来改变状态 |
+| [ChangeNotifierProvider] | 返回任何 ChangeNotifier 的之类 | 一个可变的复杂状态对象                           |
 
 :::caution
-While all providers have their purpose, [ChangeNotifierProvider]s are not recommended for scalable applications, 
-because of issues with mutable state.
-It exists in the `flutter_riverpod` package to provide an easy migration path from `package:provider`, and allows
-for some flutter specific use-cases such as integration with some Navigator 2 packages.
+尽管所有的 providers 都有他们的用途，但是由于可变对象自身的问题，因此 [ChangeNotifierProvider]s 不适用于可扩展的应用程序，
+它在 `flutter_riverpod` 包中存在，用于提供一个简单的迁移路径来从 `package:provider` 中过渡，
+并允许在一些 flutter 特定的使用场景中使用，例如与一些 Navigator 2 包的集成。
 :::
 
-## Provider Modifiers
+## Provider 的修饰符
 
-All Providers have a built-in way to add extra functionalities to your different providers.
+所有的 providers 都有一个内置的方法来为不同 providers 添加额外的功能。
 
-They may add new features to the `ref` object or change slightly how the provider
-is consumed.
-Modifiers can be used on all providers, with a syntax similar to named constructor:
+它可以添加新的功能到 `ref` 对象，或者改变 provider 的消费方式。
+
+修饰符可以在所有 providers 上使用，与命名构造器类似的语法：
 
 ```dart
 final myAutoDisposeProvider = StateProvider.autoDispose<int>((ref) => 0);
 final myFamilyProvider = Provider.family<String, int>((ref, id) => '$id');
 ```
 
-At the moment, there are two modifiers available:
+现阶段，有两种修饰符：
 
-- [`.autoDispose`](/docs/concepts/modifiers/auto_dispose), which will make the provider automatically destroy its state
-  when it is no longer being listened to.
-- [`.family`](/docs/concepts/modifiers/family), which allows creating a provider from external parameters.
+- [`.autoDispose`](/docs/concepts/modifiers/auto_dispose), 当它不再被监听时，可以自动销毁 provider 的状态。
+
+- [`.family`](/docs/concepts/modifiers/family), 允许从外部参数创建 provider。
 
 :::note
-A provider can use multiple modifiers at once:
+一个 provider 可以同时使用多个修饰符：
 
 ```dart
 final userProvider = FutureProvider.autoDispose.family<User, int>((ref, userId) async {
@@ -150,10 +140,11 @@ final userProvider = FutureProvider.autoDispose.family<User, int>((ref, userId) 
 
 :::
 
-That's it for this guide!
+这里就是这篇指南的整个内容了！
 
-You can continue with [How to read a provider](/docs/concepts/reading).
-Alternatively, you can see [How to combine providers](/docs/concepts/combining_providers).
+你可以继续阅读 [如何使用一个 provider](/docs/concepts/reading)。
+
+或者，你可以看 [如何组合 providers](/docs/concepts/combining_providers)。
 
 [get_it]: http://pub.dev/packages/get_it
 [inheritedwidget]: https://api.flutter.dev/flutter/widgets/InheritedWidget-class.html
@@ -169,5 +160,4 @@ Alternatively, you can see [How to combine providers](/docs/concepts/combining_p
 [stateprovider]: /docs/providers/state_provider
 [statenotifierprovider]: /docs/providers/state_notifier_provider
 [changenotifierprovider]: https://pub.dev/documentation/flutter_riverpod/latest/flutter_riverpod/ChangeNotifierProvider-class.html
-
 [providerscope]: https://pub.dev/documentation/flutter_riverpod/latest/flutter_riverpod/ProviderScope-class.html
