@@ -1,19 +1,30 @@
 ---
-title: Combining Provider States
+title: 状态合并
 ---
 
-Make sure to [read about Providers](/docs/concepts/providers) first.  
+开始之前，请先阅读 [Provider](/docs/concepts/providers)
+
 In this guide, we will learn about combining provider states.
+在这个指南中，我们将学习如何合并 provider 的状态。
 
 ## Combining provider states
+
+## 合并 provider 的状态
 
 We've previously seen how to create a simple provider. But the reality is,
 in many situations a provider will want to read the state of another provider.
 
+我们在前面看到了如何创建一个简单的 provider，但是实际上，在很多情况下，
+provider 可能需要读取另一个 provider 的状态。
+
 To do that, we can use the [ref] object passed to the callback of our provider,
 and use its [watch] method.
 
+为了实现这个目的，我们可以使用 [ref] 对象，并使用它的 [watch] 方法。
+
 As an example, consider the following provider:
+
+作为一个示例，考虑如下 provider：
 
 ```dart
 final cityProvider = Provider((ref) => 'London');
@@ -21,34 +32,54 @@ final cityProvider = Provider((ref) => 'London');
 
 We can now create another provider that will consume our `cityProvider`:
 
+我们现在可以创建另一个 provider，它将消费我们的 `cityProvider`：
+
 ```dart
 final weatherProvider = FutureProvider((ref) async {
-  // We use `ref.watch` to listen to another provider, and we pass it the provider
-  // that we want to consume. Here: cityProvider
+  // 我们使用 `ref.watch` 来监听另一个 provider，并且传入我们想要消费的 provider。
+  // 在这里是：cityProvider
   final city = ref.watch(cityProvider);
 
   // We can then use the result to do something based on the value of `cityProvider`.
+  // 在这里我们可以使用结果来做一些基于 `cityProvider` 的事情。
   return fetchWeather(city: city);
 });
 ```
 
 That's it. We've created a provider that depends on another provider.
 
+就是这么简单。我们创建了一个 provider，它依赖于另一个 provider。
+
 ## FAQ
+
+## 常见问题
 
 ### What if the value being listened to changes over time?
 
+### 如果监听的值在时间间隔内发生变化？
+
 Depending on the provider that you are listening to, the value obtained may
 change over time.
+
+取决于你监听的 provider，获取到的值可能会在时间间隔内发生变化。
+
 For example, you may be listening to a [StateNotifierProvider], or the provider
 being listened to may have been forced to refresh through the use of
 [ProviderContainer.refresh]/[ref.refresh].
 
+例如，你可能监听 [StateNotifierProvider]，或者监听的 provider 可能通过
+[ProviderContainer.refresh]/[ref.refresh] 强制刷新。
+
 When using [watch], Riverpod is able to detect that the value being listened to changed
 and will _automatically_ re-execute the provider's creation callback when needed.
 
+通过使用 [watch]，Riverpod 可以检测到监听的值发生了变化，并且会在需要时 _自动_ 重新执行
+provider 的创建回调。
+
 This can be useful for computed states.
+针对计算状态，这可能是有用的。
 For example, consider a [StateNotifierProvider] that exposes a todo-list:
+例如，考虑一个 [StateNotifierProvider]，它将暴露一个待办列表：
 
 ```dart
 class TodoList extends StateNotifier<List<Todo>> {
@@ -61,9 +92,14 @@ final todoListProvider = StateNotifierProvider((ref) => TodoList());
 A common use-case would be to have the UI filter the list of todos to show
 only the completed/uncompleted todos.
 
+一个常见的使用场景是，我们希望在 UI 中过滤出已完成/未完成的 todos。
+
 An easy way to implement such a scenario would be to:
+一种实现这种情况的简单方法是：
 
 - create a [StateProvider], which exposes the currently selected filter method:
+
+- 创建一个 [StateProvider]，它将暴露当前选择的过滤方法：
 
   ```dart
   enum Filter {
@@ -77,6 +113,8 @@ An easy way to implement such a scenario would be to:
 
 - make a separate provider which combines the filter method and the todo-list
   to expose the filtered todo-list:
+
+- 创建一个单独的 provider，它将消费过滤方法和待办列表，以便暴露过滤后的待办列表：
 
   ```dart
   final filteredTodoListProvider = Provider<List<Todo>>((ref) {
@@ -95,23 +133,32 @@ An easy way to implement such a scenario would be to:
   ```
 
 Then, our UI can listen to `filteredTodoListProvider` to listen to the filtered todo-list.  
+这样，我们的 UI 将可以监听 `filteredTodoListProvider`，以便监听过滤后的待办列表。
 Using such an approach, the UI will automatically update when either the filter
 or the todo-list changes.
+通过这种方式，UI 将会在过滤器或者待办列表发生变化时自动更新。
 
 To see this approach in action, you can look at the source code of the [Todo List
 example](https://github.com/rrousselGit/river_pod/tree/master/examples/todos).
 
+进一步了解这种方式的实现，可以看 [Todo List
+example](https://github.com/rrousselGit/river_pod/tree/master/examples/todos) 的源代码。
+
 :::info
 This behavior is not specific to [Provider], and works with all providers.
+这种行为不是 [Provider] 的特定行为，并且可以用于所有 provider。
 
 For example, you could combine [watch] with [FutureProvider] to implement a search
 feature that supports live-configuration changes:
+例如，你可以将 [watch] 与 [FutureProvider] 结合使用，以实现支持实时配置的搜索功能：
 
 ```dart
 // The current search filter
+// 当前的搜索过滤器
 final searchProvider = StateProvider((ref) => '');
 
 /// Configurations which can change over time
+/// 可以随时变化的配置
 final configsProvider = StreamProvider<Configuration>(...);
 
 final charactersProvider = FutureProvider<List<Character>>((ref) async {
@@ -125,23 +172,38 @@ final charactersProvider = FutureProvider<List<Character>>((ref) async {
 
 This code will fetch a list of characters from the service, and automatically
 re-fetch the list whenever the configurations change or when the search query changes.
+代码将从服务器获取一个角色列表，并在配置发生变化或者搜索查询发生变化时自动重新获取列表。
+
 :::
 
 ### Can I read a provider without listening to it?
 
+### 我能读取一个 provider 但不监听它吗？
+
 Sometimes, we want to read the content of a provider, but without re-creating
 the value exposed when the value obtained changes.
 
+有时候，我们希望读取 provider 的内容，但不重新创建当值发生变化时被暴露的值。
+
 An example would be a `Repository`, which reads from another provider the user token
-for authentication.  
+for authentication.
+
+一个例子是一个 `Repository`，它从另一个 provider 读取用户令牌以进行身份验证。
+
 We could use [watch] and create a new `Repository` whenever the user token changes,
 but there is little to no use in doing that.
+
+我们可以使用 [watch] 并创建一个新的 `Repository`，以便当用户令牌发生变化时，但是没有什么可以做的。
 
 In this situation, we can use [read], which is similar to [watch], but will not
 cause the provider to recreate the value it exposes when the value obtained changes.
 
+在这种情况下，我们可以使用 [read]，它与 [watch] 类似，但不会导致 provider 重新创建当值发生变化时被暴露的值。
+
 In that case, a common practice is to pass `ref.read` to the object created.
 The object created will then be able to read providers whenever it wants.
+在这种情况下，一个常见的做法是将 `ref.read` 传递给创建的对象。
+创建的对象则可以在它想要的时候读取 provider。
 
 ```dart
 final userTokenProvider = StateProvider<String>((ref) => null);
@@ -169,6 +231,8 @@ class Repository {
 :::note
 You could also pass the `ref` instead of `ref.read` to your object:
 
+你也可以将 `ref` 传递给你的对象：
+
 ```dart
 final repositoryProvider = Provider((ref) => Repository(ref));
 
@@ -179,30 +243,43 @@ class Repository {
 }
 ```
 
-The only difference that passing `ref.read` brings is that it is 
+The only difference that passing `ref.read` brings is that it is
 slightly less verbose and ensures that our object never uses `ref.watch`.
+唯一的区别是传递 `ref.read` 将会让它更加简洁，并且确保我们的对象不会使用 `ref.watch`。
+
 :::
 
 :::danger **DON'T** call [read] inside the body of a provider
 
+:::danger 不要在 provider 的 body 中调用 [read]
+
 ```dart
 final myProvider = Provider((ref) {
   // Bad practice to call `read` here
+  // 在这里调用 `read` 是不好的做法
   final value = ref.read(anotherProvider);
 });
 ```
 
 If you used [read] as an attempt to avoid unwanted rebuilds of your object,
 refer to [My provider updates too often, what can I do?](#my-provider-updates-too-often-what-can-i-do)
+如果你使用 [read] 作为一个尝试避免不想要的重建对象的机会，请参考 [我的 provider 更新太频繁，我可以做什么？](#my-provider-updates-too-often-what-can-i-do)
 :::
 
 ### How to test an object that receives [read] as a parameter of its constructor?
 
+### 如何测试一个接收 [read] 作为构造函数的对象？
+
 If you are using the pattern described in [Can I read a provider without listening to it?](#can-i-read-a-provider-without-listening-to-it),
 you may be wondering how to write tests for your object.
 
+如果你使用了 [Can I read a provider without listening to it?](#can-i-read-a-provider-without-listening-to-it) 描述的模式，
+
 In this scenario, consider testing the provider directly instead of the raw object.
 You can do so by using the [ProviderContainer] class:
+
+在这种情况下，考虑使用 [ProviderContainer] 类来代替原始对象。
+你可以这样做：
 
 ```dart
 final repositoryProvider = Provider((ref) => Repository(ref.read));
@@ -222,19 +299,28 @@ test('fetches catalog', () async {
 
 ### My provider updates too often, what can I do?
 
+### 我的 provider 更新太频繁，我可以做什么？
+
 If your object is re-created too often your provider is likely listening
 to objects that it doesn't care about.
 
+如果你的对象重新创建太频繁，你的 provider 可能会监听到它不关心的对象。
+
 For example, you may be listening to a `Configuration` object, but only use the `host`
 property.  
+例如，你可能监听到一个 `Configuration` 对象，但只使用 `host` 属性。
 By listening to the entire `Configuration` object, if a property other than `host`
 changes, this still causes your provider to be re-evaluated – which may be
 undesired.
+通过监听整个 `Configuration` 对象，如果只是 `host` 属性改变，这将会导致你的 provider 被重新评估，
+这可能是不想要的。
 
 The solution to this problem is to create a separate provider that exposes _only_
 what you need in `Configuration` (so `host`):
+这个问题的解决方案是创建一个单独的 provider，它只暴露你在 `Configuration` 中需要的东西（所以 `host`）：
 
 **AVOID** listening to the entire object:
+**避免**监听整个对象：
 
 ```dart
 final configProvider = StreamProvider<Configuration>(...);
@@ -242,14 +328,15 @@ final configProvider = StreamProvider<Configuration>(...);
 final productsProvider = FutureProvider<List<Product>>((ref) async {
   // Will cause productsProvider to re-fetch the products if anything in the
   // configurations changes
+  // 如果任何在配置中的任何东西改变，将会导致 productsProvider 重新获取产品数据
   final configs = await ref.watch(configProvider.future);
 
   return dio.get('${configs.host}/products');
 });
 ```
 
-
 **PREFER** using select when you only need a single property of an object:
+**建议**使用 select 当你只需要对象的单个属性：
 
 ```dart
 final configProvider = StateProvider<Configuration>(...);
@@ -257,6 +344,7 @@ final configProvider = StateProvider<Configuration>(...);
 final productsProvider = FutureProvider<List<Product>>((ref) async {
   // Listens only to the host. If something else in the configurations
   // changes, this will not pointlessly re-evaluate our provider.
+  // 只监听 host。如果配置中的其他东西改变，这将不会无意间重新评估我们的 provider。
   final host = await ref.watch(configProvider.select((config) => config.host));
 
   return dio.get('$host/products');
@@ -264,6 +352,7 @@ final productsProvider = FutureProvider<List<Product>>((ref) async {
 ```
 
 This will only rebuild the `productsProvider` when the `host` changes.
+这将只重新构建 `productsProvider` 当 `host` 改变。
 
 [provider]: ../providers/provider
 [stateprovider]: ../providers/state_provider
